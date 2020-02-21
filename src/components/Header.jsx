@@ -1,29 +1,46 @@
 import React from 'react'
-import {
-  AppBar,
-  Button,
-  IconButton,
-  Typography,
-  Toolbar,
-} from '@material-ui/core'
+import { Link } from 'gatsby'
+import { IconButton } from '@material-ui/core'
 
 import MenuIcon from '@material-ui/icons/Menu'
 
 export default () => (
   <header className="header">
-    <AppBar />
-    <AppBar position="static">
-      <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="menu">
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6">Hello</Typography>
-      </Toolbar>
-    </AppBar>
-    <img
-      src="https://luchoster.dev/icons/icon-256x256.png"
-      alt="Luchoster's logo"
-      className="logo"
-    />
+    <div className="terminal-nav">
+      <div className="logo">
+        <Link to="/" className="no-style">
+          <img src={require('../images/pentoo-logo.webp')} alt="pentoo logo" />
+        </Link>
+      </div>
+      <nav className="terminal-menu main-menu">
+        <ul>
+          <li>
+            <a className="menu-item" href="#">
+              About
+            </a>
+          </li>
+          <li>
+            <a className="menu-item active" href="#">
+              Docs
+            </a>
+          </li>
+          <li>
+            <a className="menu-item" href="#">
+              FAQ's
+            </a>
+          </li>
+          <li>
+            <a className="menu-item" href="#">
+              Download
+            </a>
+          </li>
+          <li>
+            <a className="menu-item" href="#">
+              Blog
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </header>
 )

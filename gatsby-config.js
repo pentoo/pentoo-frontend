@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsy Started`,
-    description: `Simple Gatsby theme with scss and material-ui support`,
-    author: `@luchoster`,
+    title: `Pentoo`,
+    description: `Pentoo is a Live CD and Live USB designed for penetration testing and security assessment.`,
+    author: `@luchoster & @pentoo_linux`,
   },
   plugins: [
     {

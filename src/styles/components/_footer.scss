@@ -1,0 +1,9 @@
+.footer {
+  border-top: 1px solid _palette(primary);
+  padding: 95px 0 66px;
+  @include element('menu') {
+    ul {
+      justify-content: center !important;
+    }
+  }
+}

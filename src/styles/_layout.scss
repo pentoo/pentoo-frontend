@@ -1,11 +1,17 @@
-body {
+* {
   margin: 0;
   padding: 0;
 }
 
-.container {
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.content-container {
   margin: 0 auto;
-  padding: 0 30px;
+  padding: 50px 30px;
   @include breakpoint(sm) {
     max-width: _container(sm);
   }
@@ -27,11 +33,15 @@ body {
   @include modifier('center') {
     text-align: center;
   }
+  @include modifier('uppercase') {
+    text-transform: uppercase;
+  }
 }
 
 .logo {
-  animation: Logo-spin infinite 20s linear;
+  // animation: Logo-spin infinite 20s linear;
   max-height: 200px;
+  width: auto;
 }
 
 .header {
@@ -40,17 +50,4 @@ body {
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-}
-
-.link {
-  /* color: #61dafb; */
-}
-
-@keyframes Logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

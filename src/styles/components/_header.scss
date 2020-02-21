@@ -1,0 +1,54 @@
+.headroom {
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  &-wrapper {
+    position: absolute !important;
+    width: 100%;
+  }
+}
+.headroom--unfixed {
+  transform: translateY(0);
+  background: transparent;
+}
+.headroom--scrolled {
+  transition: transform 200ms ease-in-out;
+}
+.headroom--unpinned {
+  position: fixed;
+  transform: translateY(-100%);
+}
+.headroom--pinned {
+  position: fixed;
+  transform: translateY(0%);
+  background: white;
+}
+
+.header {
+  .terminal-nav {
+    width: 100%;
+    .logo {
+      img {
+        max-height: 100px;
+        width: auto;
+        transition: all 0.5s ease-in-out;
+      }
+      a {
+        &:hover {
+          background-color: transparent;
+          img {
+            transform: scale(0.9);
+            transition: all 0.5s ease-in-out;
+          }
+        }
+      }
+    }
+    .main-menu {
+      padding: 0 calc(var(--global-space) * 2);
+      a {
+        font-size: 20px;
+      }
+    }
+  }
+}
