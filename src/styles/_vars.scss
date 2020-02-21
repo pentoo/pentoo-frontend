@@ -1,5 +1,6 @@
 :root {
   --background-color: #222225 !important;
+  --background-color--darker: #111;
   --font-color: #e8e9ed !important;
   --font-color-light: #fff;
   --invert-font-color: #fff !important;
@@ -33,6 +34,7 @@ $container: (
 $palette: (
   bg-alt: #333333,
   bg: var(--background-color),
+  bg-dark: var(--background-color--darker),
   fg: var(--font-color),
   fg-light: var(--font-color-light),
   border: rgba(0, 0, 0, 0.125),

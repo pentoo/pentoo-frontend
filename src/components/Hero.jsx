@@ -1,13 +1,20 @@
 import React from 'react'
 
-export default () => {
+export default props => {
   return (
-    <div className="hero">
+    <div
+      className={`hero ${props.type ? props.type : ''}`}
+      style={{
+        background: `rgba(0, 0, 0, 0.075) url(${
+          props.background
+        }) center / cover no-repeat`,
+      }}
+    >
       <h1
         className="text--center text--uppercase animated zoomIn"
         data-text="Pentoo"
       >
-        Pentoo
+        {props.title}
       </h1>
     </div>
   )

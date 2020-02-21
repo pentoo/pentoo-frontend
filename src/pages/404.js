@@ -51,7 +51,7 @@ const NotFoundPage = () => {
   }
 
   return (
-    <>
+    <Layout>
       <SEO title="404: Not found" />
       <main>
         <div className="inner-404">
@@ -61,7 +61,7 @@ const NotFoundPage = () => {
           <canvas ref={Canvas} />
         </div>
       </main>
-    </>
+    </Layout>
   )
 }
 

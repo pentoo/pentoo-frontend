@@ -2,15 +2,16 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1;
   &-wrapper {
-    position: absolute !important;
-    width: 100%;
+    //   position: absolute !important;
+    //   width: 100%;
+    background: _palette(primary);
+    z-index: 401;
   }
 }
 .headroom--unfixed {
   transform: translateY(0);
-  background: transparent;
+  background: _palette(primary);
 }
 .headroom--scrolled {
   transition: transform 200ms ease-in-out;

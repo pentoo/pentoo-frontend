@@ -2,12 +2,17 @@
   align-items: center;
   background: rgba(0, 0, 0, 0.075) url('../images/bg.png') center / cover
     no-repeat;
-  height: 650px;
   @supports (display: grid) {
     display: grid;
   }
 
   @supports not (display: grid) {
     display: flex;
+  }
+  &.home-page {
+    height: 650px;
+  }
+  &.internal-page {
+    height: 400px;
   }
 }
