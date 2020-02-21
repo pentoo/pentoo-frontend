@@ -1,3 +1,17 @@
+:root {
+  --background-color: #222225 !important;
+  --font-color: #e8e9ed !important;
+  --font-color-light: #fff;
+  --invert-font-color: #fff !important;
+  --secondary-color: #a3abba !important;
+  --tertiary-color: #62c4ff !important;
+  --primary-color: #285c73 !important;
+  --error-color: #ff3c74 !important;
+  --progress-bar-background: #3f3f44 !important;
+  --progress-bar-fill: #62c4ff !important;
+  --code-bg-color: #3f3f44 !important;
+}
+
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,
@@ -18,16 +32,14 @@ $container: (
 // Palette.
 $palette: (
   bg-alt: #333333,
-  bg: #ffffff,
-  fg: #000000,
-  fg-bold: #000000,
-  fg-light: #ffffff,
+  bg: var(--background-color),
+  fg: var(--font-color),
+  fg-light: var(--font-color-light),
   border: rgba(0, 0, 0, 0.125),
   border-bg: rgba(0, 0, 0, 0.05),
-  lightGreen: #a4cc4a,
-  blue: #000,
-  yellow: #fde9a4,
-  primary: #285C73,
+  primary: #285c73,
+  secondary: #a3abba,
+  tertiary: var(--primary-color),
   invert: (
     bg: #3a3a3a,
     fg: #ffffff,

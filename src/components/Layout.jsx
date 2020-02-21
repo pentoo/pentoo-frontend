@@ -5,7 +5,7 @@ import Headroom from 'react-headroom'
 import Header from './Header'
 import Footer from './Footer'
 import '../styles/main.scss'
-import 'terminal.css'
+// import 'terminal.css'
 
 const Layout = ({ children }) => {
   return (

@@ -22,7 +22,7 @@
 .headroom--pinned {
   position: fixed;
   transform: translateY(0%);
-  background: white;
+  background: _palette(primary);
 }
 
 .header {

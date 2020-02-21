@@ -1,6 +1,7 @@
 .hero {
   align-items: center;
-  background: rgba(0, 0, 0, 0.075) url('../images/bg.png');
+  background: rgba(0, 0, 0, 0.075) url('../images/bg.png') center / cover
+    no-repeat;
   height: 650px;
   @supports (display: grid) {
     display: grid;
