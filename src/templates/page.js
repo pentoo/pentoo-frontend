@@ -1,6 +1,5 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import getYoutubeID from 'get-youtube-id'
 
 import BlockContent from '../components/BlockContent'
 import Hero from '../components/Hero'

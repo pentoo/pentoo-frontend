@@ -27,14 +27,14 @@ export default props => {
             duration={1.5}
             direction="left"
             bg={`
-                      url(${require('../images/pentoo-logo.webp')})
-                      center / auto    /* position / size */
-                      no-repeat        /* repeat */
-                      fixed            /* attachment */
-                      padding-box      /* origin */
-                      content-box      /* clip */
-                      #a3abba          /* color */
-                    `}
+              url(${require('../images/pentoo-logo.webp')})
+              center / auto    /* position / size */
+              no-repeat        /* repeat */
+              fixed            /* attachment */
+              padding-box      /* origin */
+              content-box      /* clip */
+              #a3abba          /* color */
+            `}
           >
             {children}
           </AniLink>
@@ -54,7 +54,6 @@ export default props => {
     types: {
       youtube: prop => (
         <>
-          {console.log(prop)}
           <iframe
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -68,8 +67,6 @@ export default props => {
       ),
     },
   }
-
-  console.log(props.blocks)
 
   return (
     notNilOrEmpty(props) && (
