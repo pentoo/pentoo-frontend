@@ -51,3 +51,7 @@ body {
   justify-content: center;
   font-size: calc(10px + 2vmin);
 }
+
+figure {
+  max-width: fit-content;
+}

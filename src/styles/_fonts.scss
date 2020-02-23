@@ -32,9 +32,10 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 20px 0;
+  margin: 20px 0 !important;
   color: _palette(fg-light);
-  font-weight: 700;
+  font-weight: 400 !important;
+  font-family: 'VT323', sans-serif !important;
 }
 
 blockquote > *,
