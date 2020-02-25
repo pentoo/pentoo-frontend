@@ -1,3 +1,4 @@
+import * as R from 'ramda'
 import React from 'react'
 import { graphql } from 'gatsby'
 
@@ -6,10 +7,19 @@ import Hero from '../components/Hero'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 
+import { mapIndexed, notNilOrEmpty } from '../lib/helpers'
+
 export default props => {
+  const [commitsData, setCommitsData] = React.useState()
   // let id, url
   const { data } = props
   const page = data && data.page
+
+  React.useEffect(() => {
+    fetch('https://api.github.com/repos/pentoo/pentoo-overlay/commits')
+      .then(res => res.json())
+      .then(data => setCommitsData(data))
+  }, [])
 
   return (
     <Layout>
@@ -21,11 +31,36 @@ export default props => {
       />
       <div id="main" className="page-single content-container">
         <section className="main">
-          <div className="inner">
+          <div className="components components-grid">
             <BlockContent
               blocks={page._rawBody}
-              className="page-single__body-content"
+              className="main page-single__body-content"
             />
+            {page.slug.current === 'downloads' && (
+              <aside id="menu" className="sidebar">
+                <h3>Changelog</h3>
+                {notNilOrEmpty(commitsData) &&
+                  mapIndexed((commit, index) => {
+                    return (
+                      <blockquote key={index}>
+                        <p>{commit.commit.message}</p>
+                        <footer>
+                          <cite>
+                            {commit.author.login} /{' '}
+                            <a
+                              href={commit.commit.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {commit.commit.author.date}
+                            </a>
+                          </cite>
+                        </footer>
+                      </blockquote>
+                    )
+                  })(R.slice(0, 10, commitsData))}
+              </aside>
+            )}
           </div>
         </section>
       </div>

@@ -5,6 +5,7 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 
 import Hero from '../components/Hero'
+import { mapIndexed, notNilOrEmpty } from '../lib/helpers'
 
 export default props => {
   const { data } = props
@@ -25,84 +26,18 @@ export default props => {
           </h4>
         </header>
         <div className="terminal-timeline">
-          <div className="terminal-card">
-            <header>Pentoo 2015.0 RC4.6 Release</header>
-            <div>
-              The Pentoo Team is ready to announce the next Release Candidate of
-              Pentoo 2015.0 Now that things have quieted down from the height of
-              con season, we are proud to release a well tested RC with an all
-              new (also tested) installer! As usual our commit logs speak for
-              themselves, enjoy all the updates.
-            </div>
-            <a href="#" className="btn btn-primary">
-              Download
-            </a>
-          </div>
-          <div className="terminal-card">
-            <header>Pentoo 2015.0 RC4.6 Release</header>
-            <div>
-              The Pentoo Team is ready to announce the next Release Candidate of
-              Pentoo 2015.0 Now that things have quieted down from the height of
-              con season, we are proud to release a well tested RC with an all
-              new (also tested) installer! As usual our commit logs speak for
-              themselves, enjoy all the updates.
-            </div>
-            <a href="#" className="btn btn-primary">
-              Download
-            </a>
-          </div>
-          <div className="terminal-card">
-            <header>Pentoo 2015.0 RC4.6 Release</header>
-            <div>
-              The Pentoo Team is ready to announce the next Release Candidate of
-              Pentoo 2015.0 Now that things have quieted down from the height of
-              con season, we are proud to release a well tested RC with an all
-              new (also tested) installer! As usual our commit logs speak for
-              themselves, enjoy all the updates.
-            </div>
-            <a href="#" className="btn btn-primary">
-              Download
-            </a>
-          </div>
-          <div className="terminal-card">
-            <header>Pentoo 2015.0 RC4.6 Release</header>
-            <div>
-              The Pentoo Team is ready to announce the next Release Candidate of
-              Pentoo 2015.0 Now that things have quieted down from the height of
-              con season, we are proud to release a well tested RC with an all
-              new (also tested) installer! As usual our commit logs speak for
-              themselves, enjoy all the updates.
-            </div>
-            <a href="#" className="btn btn-primary">
-              Download
-            </a>
-          </div>
-          <div className="terminal-card">
-            <header>Pentoo 2015.0 RC4.6 Release</header>
-            <div>
-              The Pentoo Team is ready to announce the next Release Candidate of
-              Pentoo 2015.0 Now that things have quieted down from the height of
-              con season, we are proud to release a well tested RC with an all
-              new (also tested) installer! As usual our commit logs speak for
-              themselves, enjoy all the updates.
-            </div>
-            <a href="#" className="btn btn-primary">
-              Download
-            </a>
-          </div>
-          <div className="terminal-card">
-            <header>Pentoo 2015.0 RC4.6 Release</header>
-            <div>
-              The Pentoo Team is ready to announce the next Release Candidate of
-              Pentoo 2015.0 Now that things have quieted down from the height of
-              con season, we are proud to release a well tested RC with an all
-              new (also tested) installer! As usual our commit logs speak for
-              themselves, enjoy all the updates.
-            </div>
-            <a href="#" className="btn btn-primary">
-              Download
-            </a>
-          </div>
+          {notNilOrEmpty(page.releases) &&
+            mapIndexed((release, index) => {
+              return (
+                <div className="terminal-card" key={index}>
+                  <header>{release.release_name}</header>
+                  <div>{release.description}</div>
+                  <a href="#" className="btn btn-primary">
+                    Download
+                  </a>
+                </div>
+              )
+            })(page.releases)}
         </div>
       </section>
     </Layout>
@@ -119,6 +54,11 @@ export const homePageQuery = graphql`
             srcWebp
           }
         }
+      }
+      releases {
+        release_name
+        release_date
+        description
       }
     }
   }
