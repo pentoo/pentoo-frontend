@@ -1,9 +1,11 @@
 import React from 'react'
 import AniLink from 'gatsby-plugin-transition-link/AniLink'
-import BlockContent from '@sanity/block-content-to-react'
+import BasePortableText from '@sanity/block-content-to-react'
 import getYoutubeID from 'get-youtube-id'
 
 import { notNilOrEmpty } from '../lib/helpers'
+import clientConfig from '../client-config'
+import Figure from './Figure'
 
 export default props => {
   const _getYTId = value => {
@@ -52,6 +54,7 @@ export default props => {
       },
     },
     types: {
+      mainImage: Figure,
       youtube: prop => (
         <>
           <iframe
@@ -71,12 +74,11 @@ export default props => {
   return (
     notNilOrEmpty(props) && (
       <>
-        <BlockContent
+        <BasePortableText
           blocks={props.blocks}
           serializers={serializers}
           className={props.className}
-          projectId={process.env.SANITY_ID}
-          dataset="production"
+          {...clientConfig.sanity}
         />
       </>
     )
