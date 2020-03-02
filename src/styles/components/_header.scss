@@ -2,6 +2,7 @@
   top: 0;
   left: 0;
   right: 0;
+  z-index: 450 !important;
   &-wrapper {
     //   position: absolute !important;
     //   width: 100%;
@@ -28,7 +29,13 @@
 
 .header {
   .terminal-nav {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
     width: 100%;
+    @include breakpoint(lg) {
+      flex-direction: column;
+    }
     .logo {
       img {
         max-height: 100px;
@@ -46,10 +53,24 @@
       }
     }
     .main-menu {
-      padding: 0 calc(var(--global-space) * 2);
-      a {
-        font-size: 24px;
-        color: white;
+      display: none;
+      @include breakpoint(lg) {
+        display: block;
+        padding: 0 calc(var(--global-space) * 2);
+        a {
+          font-size: 24px;
+          color: white;
+        }
+      }
+    }
+    .burger-menu {
+      display: flex !important;
+      flex: 1;
+      float: right;
+      justify-content: flex-end;
+      max-width: 40px;
+      @include breakpoint(lg) {
+        display: none;
       }
     }
   }

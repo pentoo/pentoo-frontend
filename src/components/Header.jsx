@@ -1,12 +1,19 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import { IconButton } from '@material-ui/core'
+import {
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListSubheader,
+} from '@material-ui/core'
 import AniLink from 'gatsby-plugin-transition-link/AniLink'
-// import MenuIcon from '@material-ui/icons/Menu'
+import MenuIcon from '@material-ui/icons/Menu'
 
 import { mapIndexed } from '../lib/helpers'
 
 export default () => {
+  const [showDrawer, setShowDrawer] = React.useState(false)
   const data = useStaticQuery(graphql`
     {
       menuItems: sanityMainMenu {
@@ -27,6 +34,10 @@ export default () => {
       }
     }
   `)
+
+  const toggleDrawer = () => {
+    setShowDrawer(!showDrawer)
+  }
 
   const { items } = data.menuItems
   const settings = data.siteSettings
@@ -54,6 +65,54 @@ export default () => {
             <img src={settings.logo.asset.fluid.srcWebp} alt="pentoo logo" />
           </AniLink>
         </div>
+        <IconButton
+          edge="start"
+          className="burger-menu terminal-menu main-menu"
+          color="inherit"
+          aria-label="menu"
+          onClick={toggleDrawer}
+        >
+          <MenuIcon fontSize="large" />
+        </IconButton>
+        <Drawer open={showDrawer} onClose={toggleDrawer}>
+          <div
+            role="presentation"
+            onClick={toggleDrawer}
+            onKeyDown={toggleDrawer}
+          >
+            <List
+              component="nav"
+              subheader={
+                <ListSubheader component="div" id="nested-list-subheader">
+                  Main Menu
+                </ListSubheader>
+              }
+            >
+              {mapIndexed((item, index) => (
+                <ListItem button key={index} style={{ width: 250 }}>
+                  <AniLink
+                    cover
+                    className="menu-item"
+                    to={item.slug}
+                    duration={1.5}
+                    direction="left"
+                    bg={`
+                      url(${settings.logo.asset.fluid.srcWebp})
+                      center / auto    /* position / size */
+                      no-repeat        /* repeat */
+                      fixed            /* attachment */
+                      padding-box      /* origin */
+                      content-box      /* clip */
+                      #a3abba          /* color */
+                    `}
+                  >
+                    {item.page_title}
+                  </AniLink>
+                </ListItem>
+              ))(items)}
+            </List>
+          </div>
+        </Drawer>
         <nav className="terminal-menu main-menu">
           <ul>
             {mapIndexed((item, index) => (

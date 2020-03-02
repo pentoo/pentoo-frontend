@@ -6,6 +6,7 @@ import BlockContent from '../components/BlockContent'
 import Hero from '../components/Hero'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
+import FAQs from '../components/FAQs'
 
 import { mapIndexed, notNilOrEmpty } from '../lib/helpers'
 
@@ -14,6 +15,7 @@ export default props => {
   // let id, url
   const { data } = props
   const page = data && data.page
+  const faqs = data && data.faqs
 
   React.useEffect(() => {
     fetch('https://api.github.com/repos/pentoo/pentoo-overlay/commits')
@@ -31,7 +33,10 @@ export default props => {
       />
       <div id="main" className="page-single content-container">
         <section className="main">
-          <div className="components components-grid">
+          <div
+            className={`components ${page.slug.current === 'downloads' &&
+              'components-grid'}`}
+          >
             <BlockContent
               blocks={page._rawBody}
               className="main page-single__body-content"
@@ -61,6 +66,11 @@ export default props => {
                   })(R.slice(0, 10, commitsData))}
               </aside>
             )}
+            {page.slug.current === 'faqs' &&
+              notNilOrEmpty(faqs) &&
+              faqs.faqs.map((f, index) => {
+                return <FAQs key={index} faq={f} />
+              })}
           </div>
         </section>
       </div>
@@ -82,6 +92,12 @@ export const pageQuery = graphql`
       }
       slug {
         current
+      }
+    }
+    faqs: sanityFaqs {
+      faqs {
+        question
+        _rawAnswer
       }
     }
   }
