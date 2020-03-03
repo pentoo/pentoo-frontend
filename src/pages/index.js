@@ -21,9 +21,9 @@ export default props => {
       .then(res => res.json())
       .then(data => setCommitsData(data))
 
-    // fetch('https://pentoo.ch/isos/latest-iso-symlinks/versions.json')
-    //   .then(res => res.json())
-    //   .then(data => setReleasesData(data))
+    fetch('https://pentoo.ch/isos/latest-iso-symlinks/versions.json')
+      .then(res => res.json())
+      .then(data => setReleasesData(data))
   }, [])
 
   return (
@@ -41,32 +41,29 @@ export default props => {
           </h4>
         </header>
         <div className="terminal-timeline">
-          {
-            // notNilOrEmpty(releasesData) &&
-            // mapIndexed((release, index) => {
-            //   return (
-            //     <div className="terminal-card" key={index}>
-            //       <header>{release.name} / {release.version}</header>
-            //       <div>{release.type}</div>
-            //       <a href="#" className="btn btn-primary">
-            //         Download
-            //       </a>
-            //     </div>
-            //   )
-            // })((releasesData))
-          }
-          {notNilOrEmpty(page.releases) &&
+          {notNilOrEmpty(releasesData) &&
             mapIndexed((release, index) => {
               return (
                 <div className="terminal-card" key={index}>
-                  <header>{release.release_name}</header>
-                  <div>{release.description}</div>
-                  <a href="#" className="btn btn-primary">
-                    Download
-                  </a>
+                  <header>
+                    <strong>
+                      {release.name} / version: {release.version}
+                    </strong>
+                  </header>
+                  <div>
+                    <h5>Type: {release.type}</h5>
+                    <a
+                      href={`https://pentoo.ch/${release.path}`}
+                      className="btn btn-primary"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Download
+                    </a>
+                  </div>
                 </div>
               )
-            })(page.releases)}
+            })(releasesData)}
         </div>
       </section>
       <section className="content-container">
@@ -81,17 +78,19 @@ export default props => {
               return (
                 <div className="terminal-card" key={index}>
                   <header>
-                    {commit.author.login} /{' '}
-                    <a
-                      href={commit.commit.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {format(
-                        new Date(commit.commit.author.date),
-                        'MM.dd.yyyy - kk:mm'
-                      )}
-                    </a>
+                    <strong>
+                      {commit.author.login} /{' '}
+                      <a
+                        href={commit.commit.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {format(
+                          new Date(commit.commit.author.date),
+                          'MM.dd.yyyy - kk:mm'
+                        )}
+                      </a>
+                    </strong>
                   </header>
                   <div>{commit.commit.message}</div>
                 </div>
