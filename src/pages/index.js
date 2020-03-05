@@ -1,14 +1,11 @@
-import * as R from 'ramda'
 import React from 'react'
 import { graphql } from 'gatsby'
-import { format } from 'date-fns'
 
 import BlockContent from '../components/BlockContent'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 
 import Hero from '../components/Hero'
-import { mapIndexed, notNilOrEmpty } from '../lib/helpers'
 
 export default props => {
   const { data } = props
