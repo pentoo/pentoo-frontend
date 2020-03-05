@@ -75,28 +75,29 @@ export default () => {
           <MenuIcon fontSize="large" />
         </IconButton>
         <Drawer open={showDrawer} onClose={toggleDrawer}>
-          <div
-            role="presentation"
-            onClick={toggleDrawer}
-            onKeyDown={toggleDrawer}
+          <List
+            component="nav"
+            subheader={
+              <ListSubheader component="div" id="nested-list-subheader">
+                Main Menu
+              </ListSubheader>
+            }
           >
-            <List
-              component="nav"
-              subheader={
-                <ListSubheader component="div" id="nested-list-subheader">
-                  Main Menu
-                </ListSubheader>
-              }
-            >
-              {mapIndexed((item, index) => (
-                <ListItem button key={index} style={{ width: 250 }}>
-                  <AniLink
-                    cover
-                    className="menu-item"
-                    to={item.slug}
-                    duration={1.5}
-                    direction="left"
-                    bg={`
+            {mapIndexed((item, index) => (
+              <ListItem
+                button
+                key={index}
+                style={{ width: 250 }}
+                onClick={toggleDrawer}
+                onKeyDown={toggleDrawer}
+              >
+                <AniLink
+                  cover
+                  className="menu-item"
+                  to={item.slug}
+                  duration={1.5}
+                  direction="left"
+                  bg={`
                       url(${settings.logo.asset.fluid.srcWebp})
                       center / auto    /* position / size */
                       no-repeat        /* repeat */
@@ -105,13 +106,12 @@ export default () => {
                       content-box      /* clip */
                       #a3abba          /* color */
                     `}
-                  >
-                    {item.page_title}
-                  </AniLink>
-                </ListItem>
-              ))(items)}
-            </List>
-          </div>
+                >
+                  {item.page_title}
+                </AniLink>
+              </ListItem>
+            ))(items)}
+          </List>
         </Drawer>
         <nav className="terminal-menu main-menu">
           <ul>

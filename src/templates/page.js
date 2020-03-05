@@ -1,6 +1,7 @@
 import * as R from 'ramda'
 import React from 'react'
 import { graphql } from 'gatsby'
+import { format } from 'date-fns'
 
 import BlockContent from '../components/BlockContent'
 import Hero from '../components/Hero'
@@ -12,6 +13,7 @@ import { mapIndexed, notNilOrEmpty } from '../lib/helpers'
 
 export default props => {
   const [commitsData, setCommitsData] = React.useState()
+  const [releasesData, setReleasesData] = React.useState()
   // let id, url
   const { data } = props
   const page = data && data.page
@@ -21,6 +23,10 @@ export default props => {
     fetch('https://api.github.com/repos/pentoo/pentoo-overlay/commits')
       .then(res => res.json())
       .then(data => setCommitsData(data))
+
+    fetch('https://pentoo.ch/isos/latest-iso-symlinks/versions.json')
+      .then(res => res.json())
+      .then(data => setReleasesData(data))
   }, [])
 
   return (
@@ -37,34 +43,79 @@ export default props => {
             className={`components ${page.slug.current === 'downloads' &&
               'components-grid'}`}
           >
-            <BlockContent
-              blocks={page._rawBody}
-              className="main page-single__body-content"
-            />
-            {page.slug.current === 'downloads' && (
-              <aside id="menu" className="sidebar">
-                <h3>Changelog</h3>
-                {notNilOrEmpty(commitsData) &&
-                  mapIndexed((commit, index) => {
-                    return (
-                      <blockquote key={index}>
-                        <p>{commit.commit.message}</p>
-                        <footer>
-                          <cite>
-                            {commit.author.login} /{' '}
-                            <a
-                              href={commit.commit.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              {commit.commit.author.date}
-                            </a>
-                          </cite>
-                        </footer>
-                      </blockquote>
-                    )
-                  })(R.slice(0, 10, commitsData))}
-              </aside>
+            {page.slug.current !== 'downloads' ? (
+              <BlockContent
+                blocks={page._rawBody}
+                className="main page-single__body-content"
+              />
+            ) : (
+              <>
+                <div>
+                  <BlockContent
+                    blocks={page._rawBody}
+                    className="main page-single__body-content"
+                  />
+                  <header>
+                    <h2 id="releases" className="terminal-prompt">
+                      Releases
+                    </h2>
+                  </header>
+                  <div className="terminal-timeline">
+                    {notNilOrEmpty(releasesData) &&
+                      mapIndexed((release, index) => {
+                        return (
+                          <div className="terminal-card" key={index}>
+                            <header>
+                              <strong>
+                                {release.name} / version: {release.version}
+                              </strong>
+                            </header>
+                            <div>
+                              <h5>Type: {release.type}</h5>
+                              <a
+                                href={`https://pentoo.ch/${release.path}`}
+                                className="btn btn-primary"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                Download
+                              </a>
+                            </div>
+                          </div>
+                        )
+                      })(releasesData)}
+                  </div>
+                </div>
+                <aside id="menu" className="sidebar">
+                  <h3>Changelog</h3>
+                  {notNilOrEmpty(commitsData) &&
+                    mapIndexed((commit, index) => {
+                      return (
+                        <>
+                          <blockquote key={index}>
+                            <p>{commit.commit.message}</p>
+                            <footer>
+                              <cite>
+                                {commit.author.login} /{' '}
+                                <a
+                                  href={commit.commit.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {format(
+                                    new Date(commit.commit.author.date),
+                                    'MM.dd.yyyy - kk:mm'
+                                  )}
+                                </a>
+                              </cite>
+                            </footer>
+                          </blockquote>
+                          <hr />
+                        </>
+                      )
+                    })(R.slice(0, 10, commitsData))}
+                </aside>
+              </>
             )}
             {page.slug.current === 'faqs' &&
               notNilOrEmpty(faqs) &&

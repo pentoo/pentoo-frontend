@@ -3,6 +3,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import { format } from 'date-fns'
 
+import BlockContent from '../components/BlockContent'
 import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 
@@ -10,21 +11,8 @@ import Hero from '../components/Hero'
 import { mapIndexed, notNilOrEmpty } from '../lib/helpers'
 
 export default props => {
-  const [commitsData, setCommitsData] = React.useState()
-  const [releasesData, setReleasesData] = React.useState()
-
   const { data } = props
   const { sanityHomePage: page } = data && data
-
-  React.useEffect(() => {
-    fetch('https://api.github.com/repos/pentoo/pentoo-overlay/commits')
-      .then(res => res.json())
-      .then(data => setCommitsData(data))
-
-    fetch('https://pentoo.ch/isos/latest-iso-symlinks/versions.json')
-      .then(res => res.json())
-      .then(data => setReleasesData(data))
-  }, [])
 
   return (
     <Layout>
@@ -35,68 +23,10 @@ export default props => {
         background={page.hero_image.asset.fluid.srcWebp}
       />
       <section className="content-container">
-        <header>
-          <h4 id="releases" className="terminal-prompt">
-            Releases
-          </h4>
-        </header>
-        <div className="terminal-timeline">
-          {notNilOrEmpty(releasesData) &&
-            mapIndexed((release, index) => {
-              return (
-                <div className="terminal-card" key={index}>
-                  <header>
-                    <strong>
-                      {release.name} / version: {release.version}
-                    </strong>
-                  </header>
-                  <div>
-                    <h5>Type: {release.type}</h5>
-                    <a
-                      href={`https://pentoo.ch/${release.path}`}
-                      className="btn btn-primary"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Download
-                    </a>
-                  </div>
-                </div>
-              )
-            })(releasesData)}
-        </div>
-      </section>
-      <section className="content-container">
-        <header>
-          <h4 id="releases" className="terminal-prompt">
-            Changelog
-          </h4>
-        </header>
-        <div className="terminal-timeline">
-          {notNilOrEmpty(commitsData) &&
-            mapIndexed((commit, index) => {
-              return (
-                <div className="terminal-card" key={index}>
-                  <header>
-                    <strong>
-                      {commit.author.login} /{' '}
-                      <a
-                        href={commit.commit.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {format(
-                          new Date(commit.commit.author.date),
-                          'MM.dd.yyyy - kk:mm'
-                        )}
-                      </a>
-                    </strong>
-                  </header>
-                  <div>{commit.commit.message}</div>
-                </div>
-              )
-            })(R.slice(0, 10, commitsData))}
-        </div>
+        <BlockContent
+          blocks={page._rawBody}
+          className="main page-single__body-content"
+        />
       </section>
     </Layout>
   )
@@ -105,6 +35,7 @@ export default props => {
 export const homePageQuery = graphql`
   query {
     sanityHomePage {
+      _rawBody
       pageTitle
       hero_image {
         asset {
@@ -112,11 +43,6 @@ export const homePageQuery = graphql`
             srcWebp
           }
         }
-      }
-      releases {
-        release_name
-        release_date
-        description
       }
     }
   }
