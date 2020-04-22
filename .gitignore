@@ -72,4 +72,4 @@ yarn-error.log
 .yarn-integrity
 
 # Local Netlify folder
-.netlify
+.netlify/

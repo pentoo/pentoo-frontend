@@ -13,7 +13,7 @@ export default props => {
 
   return (
     <Layout>
-      <SEO title="Pentoo" />
+      <SEO title="Home Page" />
       <Hero
         title={page.pageTitle}
         type="home-page"

@@ -7,45 +7,51 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import Helmet from 'react-helmet'
+import { Helmet } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
 
 function SEO({ description, lang, meta, keywords, title }) {
-  const { site } = useStaticQuery(
+  const query = useStaticQuery(
     graphql`
       query {
-        site {
-          siteMetadata {
-            title
-            description
-            author
+        sanitySiteSettings {
+          title
+          description
+          author
+          keywords
+          logo {
+            asset {
+              fluid {
+                srcWebp
+              }
+            }
           }
         }
       }
     `
   )
 
-  const metaDescription = description || site.siteMetadata.description
+  const site = query.sanitySiteSettings
 
   return (
     <Helmet
       htmlAttributes={{
         lang,
       }}
-      title={site.siteMetadata.title}
-      titleTemplate={`%s | ${site.siteMetadata.author}`}
+      title={site.title}
+      titleTemplate={`%s | ${site.author}`}
       meta={[
         {
           name: `description`,
-          content: metaDescription,
+          content: site.description,
         },
         {
           property: `og:title`,
-          content: title,
+          content: site.title,
         },
         {
           property: `og:description`,
-          content: metaDescription,
+          content: site.description,
         },
         {
           property: `og:type`,
@@ -57,22 +63,22 @@ function SEO({ description, lang, meta, keywords, title }) {
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata.author,
+          content: site.author,
         },
         {
           name: `twitter:title`,
-          content: title,
+          content: site.title,
         },
         {
           name: `twitter:description`,
-          content: metaDescription,
+          content: site.description,
         },
       ]
         .concat(
-          keywords.length > 0
+          site.keywords.length > 0
             ? {
                 name: `keywords`,
-                content: keywords.join(`, `),
+                content: site.keywords.join(`, `),
               }
             : []
         )
@@ -84,16 +90,14 @@ function SEO({ description, lang, meta, keywords, title }) {
 SEO.defaultProps = {
   lang: `en`,
   meta: [],
-  keywords: [],
-  description: ``,
 }
 
-SEO.propTypes = {
-  description: PropTypes.string,
-  lang: PropTypes.string,
-  meta: PropTypes.arrayOf(PropTypes.object),
-  keywords: PropTypes.arrayOf(PropTypes.string),
-  title: PropTypes.string.isRequired,
-}
+// SEO.propTypes = {
+//   description: PropTypes.string,
+//   lang: PropTypes.string,
+//   meta: PropTypes.arrayOf(PropTypes.object),
+//   keywords: PropTypes.arrayOf(PropTypes.string),
+//   title: PropTypes.string.isRequired,
+// }
 
 export default SEO
