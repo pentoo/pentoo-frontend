@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
 
-function SEO({ description, lang, meta, keywords, title }) {
+function SEO(props) {
   const query = useStaticQuery(
     graphql`
       query {
@@ -35,61 +35,60 @@ function SEO({ description, lang, meta, keywords, title }) {
 
   return (
     <Helmet
-      htmlAttributes={{
-        lang,
-      }}
-      title={site.title}
-      titleTemplate={`%s | ${site.author}`}
-      meta={[
-        {
-          name: `description`,
-          content: site.description,
-        },
-        {
-          property: `og:title`,
-          content: site.title,
-        },
-        {
-          property: `og:description`,
-          content: site.description,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: site.author,
-        },
-        {
-          name: `twitter:title`,
-          content: site.title,
-        },
-        {
-          name: `twitter:description`,
-          content: site.description,
-        },
-      ]
-        .concat(
-          site.keywords.length > 0
-            ? {
-                name: `keywords`,
-                content: site.keywords.join(`, `),
-              }
-            : []
-        )
-        .concat(meta)}
+      htmlAttributes={{ lang: 'en' }}
+      title={`${props.title} | Pentoo`}
+      meta={
+        [
+          {
+            name: `description`,
+            content: site.description
+          },
+          {
+            property: `og:title`,
+            content: site.title
+          },
+          {
+            property: `og:description`,
+            content: site.description
+          },
+          {
+            property: `og:type`,
+            content: `website`
+          },
+          {
+            name: `twitter:card`,
+            content: `summary`
+          },
+          {
+            name: `twitter:creator`,
+            content: site.author
+          },
+          {
+            name: `twitter:title`,
+            content: site.title
+          },
+          {
+            name: `twitter:description`,
+            content: site.description
+          }
+        ]
+        // .concat(
+        //   site.keywords.length > 0
+        //     ? {
+        //         name: `keywords`,
+        //         content: site.keywords.join(`, `)
+        //       }
+        //     : []
+        // )
+        //   .concat(props.meta)
+      }
     />
   )
 }
 
 SEO.defaultProps = {
   lang: `en`,
-  meta: [],
+  meta: []
 }
 
 // SEO.propTypes = {
