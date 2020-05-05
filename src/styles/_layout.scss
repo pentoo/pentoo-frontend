@@ -84,7 +84,13 @@ iframe {
   }
 }
 
+.home-page {
+  .sidebar {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+}
+
 .sidebar {
-  max-height: 400px;
-  overflow-y: auto;
+  padding-left: 20px;
 }

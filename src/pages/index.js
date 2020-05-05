@@ -30,7 +30,7 @@ export default props => {
         type="home-page"
         background={page.hero_image.asset.fluid.srcWebp}
       />
-      <section className="content-container">
+      <section className="content-container home-page">
         <section className="main">
           <div className={`components components-grid`}>
             <BlockContent
