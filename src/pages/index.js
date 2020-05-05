@@ -43,7 +43,7 @@ export default props => {
                 mapIndexed((commit, index) => {
                   return (
                     <>
-                      <blockquote key={index}>
+                      <p key={index}>
                         <p>{commit.commit.message}</p>
                         <footer>
                           <cite>
@@ -60,7 +60,7 @@ export default props => {
                             </a>
                           </cite>
                         </footer>
-                      </blockquote>
+                      </p>
                       <hr />
                     </>
                   )
